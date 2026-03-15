@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinHome — Financiële Analyse Tools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f2f1ed;
+  --card: #ffffff;
+  --border: #dedad2;
+  --accent: #1a1a2e;
+  --gold: #b8963e;
+  --muted: #8a8880;
+  --green: #2e7d32;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--bg);
+  color: var(--accent);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--accent);
+  color: #fff;
+  padding: 32px 40px;
+  border-bottom: 4px solid var(--gold);
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  margin-bottom: 8px;
+}
+
+.logo span {
+  color: var(--gold);
+}
+
+.tagline {
+  font-size: 14px;
+  color: rgba(255,255,255,.6);
+  font-weight: 300;
+  letter-spacing: .04em;
+}
+
+/* ── MAIN ── */
+.main {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 60px 40px;
+}
+
+.intro {
+  margin-bottom: 56px;
+  text-align: center;
+}
+
+.intro h1 {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  margin-bottom: 16px;
+  color: var(--accent);
+}
+
+.intro p {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* ── PROJECT GRID ── */
+.section-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 24px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border);
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 28px;
+  margin-bottom: 48px;
+}
+
+.project-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 32px 28px;
+  transition: all .3s cubic-bezier(.4,0,.2,1);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .4s cubic-bezier(.4,0,.2,1);
+}
+
+.project-card:hover {
+  box-shadow: 0 8px 28px rgba(0,0,0,.12);
+  transform: translateY(-4px);
+}
+
+.project-card:hover::before {
+  transform: scaleX(1);
+}
+
+.project-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 2px;
+  margin-bottom: 16px;
+  align-self: flex-start;
+}
+
+.status-live {
+  background: rgba(46,125,50,.12);
+  color: var(--green);
+}
+
+.status-coming {
+  background: rgba(184,150,62,.12);
+  color: var(--gold);
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.project-card h2 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  margin-bottom: 12px;
+  color: var(--accent);
+}
+
+.project-card p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.project-features {
+  list-style: none;
+  margin-bottom: 24px;
+}
+
+.project-features li {
+  font-size: 13px;
+  color: var(--accent);
+  padding: 6px 0;
+  padding-left: 20px;
+  position: relative;
+}
+
+.project-features li::before {
+  content: '◆';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  transition: color .2s;
+  margin-top: auto;
+}
+
+.project-card:hover .project-link {
+  color: var(--gold);
+}
+
+.project-link svg {
+  width: 14px;
+  height: 14px;
+  transition: transform .3s;
+}
+
+.project-card:hover .project-link svg {
+  transform: translateX(4px);
+}
+
+.project-card.disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.project-card.disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--accent);
+  color: rgba(255,255,255,.5);
+  padding: 28px 40px;
+  text-align: center;
+  font-size: 12px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-links a {
+  color: rgba(255,255,255,.5);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.footer-links a:hover {
+  color: var(--gold);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .header {
+    padding: 24px 20px;
+  }
+  
+  .logo {
+    font-size: 22px;
+  }
+  
+  .tagline {
+    font-size: 12px;
+  }
+  
+  .main {
+    padding: 40px 20px;
+  }
+  
+  .intro h1 {
+    font-size: 24px;
+  }
+  
+  .intro p {
+    font-size: 14px;
+  }
+  
+  .projects {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .project-card {
+    padding: 24px 20px;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer-links {
+    justify-content: center;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">Fin<span>.</span>Home</div>
+  <div class="tagline">Professionele financiële analyse tools, gebouwd met precisie</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  
+  <div class="intro">
+    <h1>Welkom bij FinHome</h1>
+    <p>Een collectie van geavanceerde financiële analyse tools voor ondernemingen. Alle instrumenten die je nodig hebt voor diepgaand financieel inzicht.</p>
+  </div>
+
+  <div class="section-title">Beschikbare Tools</div>
+  
+  <div class="projects">
+    
+    <!-- FinDash -->
+    <a href="https://jonas08b.github.io/FinDash" class="project-card">
+      <div class="project-status status-live">
+        <span class="status-dot"></span>
+        Live
+      </div>
+      <h2>FinDash</h2>
+      <p>Professioneel dashboard voor financiële ratio-analyse met sector benchmarking. Upload je jaarrekening en krijg direct inzicht in liquiditeit, solvabiliteit, rendabiliteit en werkkapitaal.</p>
+      <ul class="project-features">
+        <li>7 sector-specifieke benchmarks</li>
+        <li>Automatische rating (0-10 score)</li>
+        <li>Vergelijking tussen boekjaren</li>
+        <li>PDF export van rapporten</li>
+        <li>Formule breakdown per ratio</li>
+      </ul>
+      <span class="project-link">
+        Open FinDash
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 3L11 8L6 13"/>
+        </svg>
+      </span>
+    </a>
+
+    <!-- FinCost -->
+    <a href="https://jonas08b.github.io/FinCost" class="project-card">
+      <div class="project-status status-live">
+        <span class="status-dot"></span>
+        Live
+      </div>
+      <h2>FinCost</h2>
+      <p>Kostenstructuur-dashboard voor NBB-jaarrekeningen. Analyseer waar een bedrijf zijn geld uitgeeft, meet efficiëntie per kostencategorie en vergelijk met 7 sectorbenchmarks.</p>
+      <ul class="project-features">
+        <li>Cost Ratio: totale kosten / totale opbrengsten</li>
+        <li>6 kostencategorieën met vast/variabel classificatie</li>
+        <li>11 indicatoren incl. personeelsproductiviteit &amp; schuldenratio</li>
+        <li>Anomaliedetectie &amp; sector heatmap</li>
+        <li>Toelichting per indicator op maat van het bedrijf</li>
+      </ul>
+      <span class="project-link">
+        Open FinCost
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 3L11 8L6 13"/>
+        </svg>
+      </span>
+    </a>
+
+    <!-- FinRisk -->
+    <a href="https://jonas08b.github.io/FinRisk" class="project-card">
+      <div class="project-status status-live">
+        <span class="status-dot"></span>
+        Live
+      </div>
+      <h2>FinRisk</h2>
+      <p>Faillissementsrisico scanner op basis van bewezen modellen. Upload je NBB-jaarrekening en krijg direct een risicoscore via Altman Z-Score, Springate, Zmijewski en meer.</p>
+      <ul class="project-features">
+        <li>Altman Z-Score, Springate &amp; Zmijewski modellen</li>
+        <li>Risico-classificatie met kleurcodering</li>
+        <li>Sector-specifieke benchmarks</li>
+        <li>Historische trendanalyse</li>
+        <li>PDF export van risicorapport</li>
+      </ul>
+      <span class="project-link">
+        Open FinRisk
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 3L11 8L6 13"/>
+        </svg>
+      </span>
+    </a>
+
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-content">
+    <div>&copy; 2025 FinHome — Financiële Analyse Tools</div>
+    <div class="footer-links">
+      <a href="https://github.com/jonas08b" target="_blank">GitHub</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
